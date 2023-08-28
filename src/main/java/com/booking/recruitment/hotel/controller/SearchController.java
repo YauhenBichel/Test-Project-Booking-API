@@ -1,6 +1,7 @@
 package com.booking.recruitment.hotel.controller;
 
 import com.booking.recruitment.hotel.mapper.HotelMapper;
+import com.booking.recruitment.hotel.model.SortByEnum;
 import com.booking.recruitment.hotel.service.SearchService;
 import com.booking.recruitment.hotel.vo.HotelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,8 +28,10 @@ public class SearchController {
   }
 
   @GetMapping("/{cityId}")
-  public ResponseEntity<List<HotelResponse>> findHotelsClosestToCity(@PathVariable("cityId") final Long cityId) {
-    List<HotelResponse> responseVO = hotelMapper.toResponse(searchService.getTopClosestHotels(cityId));
+  public ResponseEntity<List<HotelResponse>> findHotelsClosestToCity(
+          @PathVariable("cityId") final Long cityId,
+          @RequestParam(required = false) String sortBy) {
+    List<HotelResponse> responseVO = hotelMapper.toResponse(searchService.getTopClosestHotels(cityId, SortByEnum.DISTANCE));
     return new ResponseEntity<>(responseVO, HttpStatus.OK);
   }
 }

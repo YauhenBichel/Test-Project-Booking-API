@@ -2,6 +2,7 @@ package com.booking.recruitment.hotel.service.impl;
 
 import com.booking.recruitment.hotel.model.Hotel;
 import com.booking.recruitment.hotel.model.HotelDistancePair;
+import com.booking.recruitment.hotel.model.SortByEnum;
 import com.booking.recruitment.hotel.service.HotelService;
 import com.booking.recruitment.hotel.service.SearchService;
 import com.booking.recruitment.hotel.utility.Haversine;
@@ -23,7 +24,7 @@ class DefaultSearchService implements SearchService {
   }
 
   @Override
-  public List<Hotel> getTopClosestHotels(Long cityId) {
+  public List<Hotel> getTopClosestHotels(Long cityId, SortByEnum SortByEnum) {
 
     List<Hotel> hotels = hotelService.getHotelsByCity(cityId);
 
