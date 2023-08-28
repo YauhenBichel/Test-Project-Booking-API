@@ -31,7 +31,6 @@ public class HotelController {
   }
 
   @GetMapping("/{id}")
-  @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<HotelResponse> getHotelById(@PathVariable("id") final Long id) {
     HotelResponse responseVO = hotelMapper.toResponse(hotelService.getHotelById(id));
     return new ResponseEntity<>(responseVO, HttpStatus.OK);
@@ -41,5 +40,11 @@ public class HotelController {
   @ResponseStatus(HttpStatus.CREATED)
   public Hotel createHotel(@RequestBody Hotel hotel) {
     return hotelService.createNewHotel(hotel);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<HotelResponse> deleteHotelById(@PathVariable("id") final Long id) {
+    hotelService.deleteHotelById(id);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }

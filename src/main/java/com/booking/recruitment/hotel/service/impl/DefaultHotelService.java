@@ -30,7 +30,7 @@ class DefaultHotelService implements HotelService {
   @Override
   public Hotel getHotelById(Long id) {
     Optional<Hotel> dbEntityOpt = hotelRepository.findAll().stream()
-            .filter((hotel) -> id.equals(hotel.getId()))
+            .filter((hotel) -> id.equals(hotel.getId()) && !hotel.isDeleted())
             .findFirst();
 
     if (!dbEntityOpt.isPresent()) {
@@ -56,5 +56,13 @@ class DefaultHotelService implements HotelService {
     }
 
     return hotelRepository.save(hotel);
+  }
+
+  @Override
+  public void deleteHotelById(Long id) {
+    Hotel dbHotel = getHotelById(id);
+    dbHotel.setDeleted(true);
+
+    hotelRepository.save(dbHotel);
   }
 }
