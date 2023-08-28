@@ -37,8 +37,6 @@ class DefaultHotelService implements HotelService {
       throw new ElementNotFoundException("The hotel is not found with requested ID");
     }
 
-
-
     return dbEntityOpt.get();
   }
 
